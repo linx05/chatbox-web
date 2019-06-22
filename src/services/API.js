@@ -13,3 +13,5 @@ export class API {
     }).then(data => data.data);
   }
 }
+
+export default new API('https://0924b73d.ngrok.io/api');
