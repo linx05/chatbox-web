@@ -1,63 +1,128 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import {
+  Container,
+  Typography,
+  Button,
+  CssBaseline,
+  TextField,
+  Grid,
+  Link
+} from '@material-ui/core';
+
 import API from '../../../services/API';
 
 export class Signup extends Component {
-  state = {};
 
-  submitUser = (e) => {
+  state = {
+    user: {}
+  };
+
+  handleSubmit = (e) => {
     e.preventDefault();
 
     API.makeRequest({
-      data: this.state,
+      data: this.state.user,
       method: 'POST',
       url: 'users',
     })
     .then(data => {
-      console.log(data);
       alert('Created user!');
       this.setState({
         redirectToLogin: true,
       });
     })
     .catch(err => {
-      console.log(err);
       alert('Could not create user');
     })
   }
 
-  onChangeName = (e) => this.setState({ name: e.target.value });
-
-  onChangeUsername = (e) => this.setState({ username: e.target.value });
-
-  onChangeEmail = (e) => this.setState({ email: e.target.value });
-
-  onChangePassword = (e) => this.setState({ password: e.target.value });
+  onChange = (e) => {
+    let { user } = this.state;
+    user[e.target.name] = e.target.value;
+    this.setState({user});
+  }
 
   render() {
-    if (this.state.redirectToLogin) {
+    const { name, username, email, password, redirectToLogin } = this.state;
+    if (redirectToLogin) {
       return <Redirect to="/login" />
     }
-
-    return (<div>
-      <div>
-        Name: <input type="text" onChange={this.onChangeName} value={this.state.name} />
-      </div>
-      <div>
-        Username:
-        <input type="text" onChange={this.onChangeUsername} value={this.state.username} />
-      </div>
-      <div>
-        Email:
-        <input type="email" onChange={this.onChangeEmail} value={this.state.email} />
-      </div>
-      <div>
-        Password:
-        <input type="password" onChange={this.onChangePassword} value={this.state.password} />
-      </div>
-      <div>
-        <button onClick={this.submitUser}>Create Account</button>
-      </div>
-    </div>);
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <form noValidate onSubmit={this.handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              onChange={this.onChange}
+              value={name}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              onChange={this.onChange}
+              value={name}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              onChange={this.onChange}
+              value={email}
+              autoComplete="email"
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              onChange={this.onChange}
+              value={password}
+              autoComplete="current-password"
+            />
+            <Grid container style={{marginBottom: 10}}>
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  {"Already have an account? Login"}
+                </Link>
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              Sign Up
+            </Button>
+          </form>
+        </div>
+      </Container>
+    )
   }
 }

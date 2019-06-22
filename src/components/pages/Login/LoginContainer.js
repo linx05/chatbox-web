@@ -7,11 +7,8 @@ const mapStateToProps = (state) => {
     user: state.auth.user
   };
 }
-
-
 const mapDispatchToProps = {
   setUserToken,
 }
 
 export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(Login);
-
