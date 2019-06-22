@@ -5,7 +5,9 @@ import {
   Typography,
   Button,
   CssBaseline,
-  TextField
+  TextField,
+  Grid,
+  Link
 } from '@material-ui/core';
 
 import API from '../../../services/API';
@@ -103,6 +105,13 @@ export class Signup extends Component {
               value={password}
               autoComplete="current-password"
             />
+            <Grid container style={{marginBottom: 10}}>
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  {"Already have an account? Login"}
+                </Link>
+              </Grid>
+            </Grid>
             <Button
               type="submit"
               fullWidth

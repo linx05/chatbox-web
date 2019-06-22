@@ -8,10 +8,8 @@ const mapStateToProps = (state) => {
   };
 }
 
-
 const mapDispatchToProps = {
   setUserToken,
 }
 
 export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(Login);
-
