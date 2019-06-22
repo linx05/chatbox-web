@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import store from './redux/createStore';
-import { Signup } from './components/pages/Signup/Signup';
+import { Routes } from './Routes';
 import './App.css';
 
 function App() {
@@ -10,10 +10,7 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Router>
-          <Switch>
-            <Route path="/sign-up" component={Signup} />
-            <Route path="/" component={() => "Home"} />
-          </Switch>
+          <Routes />
         </Router>
       </div>
     </Provider>
