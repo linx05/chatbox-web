@@ -33,7 +33,6 @@ export class Login extends Component {
         })
         alert("You can login!!!!")
       }
-
     })
     .catch(err => {
       console.log(err);
